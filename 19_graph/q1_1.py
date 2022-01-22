@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Don't use hoge."""
+"""Q1-1. friend."""
 
 if __name__ == '__main__':
     n_a_b_str = input()

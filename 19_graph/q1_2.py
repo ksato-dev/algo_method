@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-"""Q1-2.follow."""
+"""Q1-2. follow."""
 
 if __name__ == '__main__':
-    n_a_b_str = input()
-    N, M = map(int, n_a_b_str.split())
+    n_m_str = input()
+    N, M = map(int, n_m_str.split())
 
     # 入力
     G = [[] for i in range(N)]
