@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Q1-3. popular freand."""
+"""Q1-3. popular friend."""
 
 if __name__ == '__main__':
     n, m = map(int, input().split())
