@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """array of numbers."""
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     n, a0, a1 = map(int, input().split())
     a_list = [None] * n
     a_list[0] = int(a0)
