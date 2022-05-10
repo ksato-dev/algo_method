@@ -9,4 +9,4 @@ if __name__ == "__main__":
     for n_id in range(2, n+1):
         dp[n_id] = dp[n_id-1] + dp[n_id-2]
 
-    print(dp[n_id])
+    print(dp[n])
