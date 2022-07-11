@@ -9,6 +9,9 @@
 typedef unsigned long long ull;
 typedef unsigned long ul;
 
+#define rep(T, i, n) for (T i = 0; i < (T)(n); i++)
+#define Graph(T) std::vector<std::vector<T>>
+
 template <class T>
 void GetSplitStringVec(const std::string& raw_data, std::vector<T>* v) {
   // ref split string: https://marycore.jp/prog/cpp/std-string-split/
@@ -22,18 +25,19 @@ void GetSplitStringVec(const std::string& raw_data, std::vector<T>* v) {
   }
 }
 
-#define Graph(T) std::vector<std::vector<T>>
-
 template <class T>
-void dfs(const Graph(T) & graph, const T& node_id, std::vector<bool>* visited) {
-  if (visited->at(node_id)) return;
-  std::cout << node_id << " ";
+const T dfs(const Graph(T) & graph, const T& node_id, const T& depth,
+            std::vector<bool>* visited) {
+  T ret_depth = depth;
+  if (visited->at(node_id)) return ret_depth;
   visited->at(node_id) = true;
 
   for (auto adj_node_id : graph[node_id]) {
     if (visited->at(adj_node_id)) continue;
-    dfs<T>(graph, adj_node_id, visited);
+    // ret_depth = std::max(ret_depth, dfs<T>(graph, adj_node_id, depth + 1, visited));
+    ret_depth = dfs<T>(graph, adj_node_id, depth + 1, visited);
   }
+  return ret_depth;
 }
 
 int main() {
@@ -46,25 +50,18 @@ int main() {
   GetSplitStringVec<ul>(raw_str, &p_list);
 
   Graph(ul) graph(n);
-
-  for (ul i = 0; i < n; i++) {
-    std::make_heap(graph[i].begin(), graph[i].end());
+  rep(ul, i, n - 1) {
+    // 子から親への参照を登録
+    graph[i + 1].push_back(p_list[i]);
   }
 
-  for (ul i = 1; i < n; i++) {
-    ul p = p_list[i - 1];
-    graph[p].push_back(i);
-    std::push_heap(graph[p].begin(), graph[p].end());
+  // 子から根までの深さを調べる。
+  std::cout << 0 << std::endl;  // 根は深さ０
+  rep(ul, i, n - 1) {
+    std::vector<bool> visited(n, false);
+    ul depth = dfs<ul>(graph, i + 1, 0, &visited);
+    std::cout << depth << std::endl;
   }
-
-  for (ul i = 0; i < n; i++) {
-    std::sort_heap(graph[i].begin(), graph[i].end());
-  }
-
-  std::vector<bool> visited(n, false);
-
-  dfs<ul>(graph, 0, &visited);
-  std::cout << std::endl;
 
   return 0;
 }
